@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ContactosBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tb_Celular">
+          <Key>
+            <PropertyRef Name="idcelular" />
+          </Key>
+          <Property Name="idcelular" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="celular" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="principal" Type="bit" Nullable="false" />
+          <Property Name="idMedioContacto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_contacto">
+          <Key>
+            <PropertyRef Name="idcontacto" />
+          </Key>
+          <Property Name="idcontacto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedulaTitular" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="cedulaContacto" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_medioContacto">
+          <Key>
+            <PropertyRef Name="idmedioContacto" />
+          </Key>
+          <Property Name="idmedioContacto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="correo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="facebook" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="instagram" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="cedulaUsuario" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_usuario">
+          <Key>
+            <PropertyRef Name="cedula" />
+          </Key>
+          <Property Name="cedula" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellido" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ciudad" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="edad" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tb_Celula__idMed__1920BF5C">
+          <End Role="tb_medioContacto" Type="Self.tb_medioContacto" Multiplicity="1" />
+          <End Role="tb_Celular" Type="Self.tb_Celular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_medioContacto">
+              <PropertyRef Name="idmedioContacto" />
+            </Principal>
+            <Dependent Role="tb_Celular">
+              <PropertyRef Name="idMedioContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_contac__cedul__1273C1CD">
+          <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="1" />
+          <End Role="tb_contacto" Type="Self.tb_contacto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="tb_contacto">
+              <PropertyRef Name="cedulaTitular" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_contac__cedul__1367E606">
+          <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="1" />
+          <End Role="tb_contacto" Type="Self.tb_contacto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="tb_contacto">
+              <PropertyRef Name="cedulaContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_medioC__cedul__164452B1">
+          <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="1" />
+          <End Role="tb_medioContacto" Type="Self.tb_medioContacto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="tb_medioContacto">
+              <PropertyRef Name="cedulaUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ContactosBDModelStoreContainer">
+          <EntitySet Name="tb_Celular" EntityType="Self.tb_Celular" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_contacto" EntityType="Self.tb_contacto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_medioContacto" EntityType="Self.tb_medioContacto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_usuario" EntityType="Self.tb_usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tb_Celula__idMed__1920BF5C" Association="Self.FK__tb_Celula__idMed__1920BF5C">
+            <End Role="tb_medioContacto" EntitySet="tb_medioContacto" />
+            <End Role="tb_Celular" EntitySet="tb_Celular" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_contac__cedul__1273C1CD" Association="Self.FK__tb_contac__cedul__1273C1CD">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_contacto" EntitySet="tb_contacto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_contac__cedul__1367E606" Association="Self.FK__tb_contac__cedul__1367E606">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_contacto" EntitySet="tb_contacto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_medioC__cedul__164452B1" Association="Self.FK__tb_medioC__cedul__164452B1">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_medioContacto" EntitySet="tb_medioContacto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ContactosBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tb_Celular">
+          <Key>
+            <PropertyRef Name="idcelular" />
+          </Key>
+          <Property Name="idcelular" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="celular" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal" Type="Boolean" Nullable="false" />
+          <Property Name="idMedioContacto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tb_medioContacto" Relationship="Self.FK__tb_Celula__idMed__1920BF5C" FromRole="tb_Celular" ToRole="tb_medioContacto" />
+        </EntityType>
+        <EntityType Name="tb_contacto">
+          <Key>
+            <PropertyRef Name="idcontacto" />
+          </Key>
+          <Property Name="idcontacto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedulaTitular" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cedulaContacto" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tb_usuario" Relationship="Self.FK__tb_contac__cedul__1273C1CD" FromRole="tb_contacto" ToRole="tb_usuario" />
+          <NavigationProperty Name="tb_usuario1" Relationship="Self.FK__tb_contac__cedul__1367E606" FromRole="tb_contacto" ToRole="tb_usuario" />
+        </EntityType>
+        <EntityType Name="tb_medioContacto">
+          <Key>
+            <PropertyRef Name="idmedioContacto" />
+          </Key>
+          <Property Name="idmedioContacto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="facebook" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="instagram" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cedulaUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tb_Celular" Relationship="Self.FK__tb_Celula__idMed__1920BF5C" FromRole="tb_medioContacto" ToRole="tb_Celular" />
+          <NavigationProperty Name="tb_usuario" Relationship="Self.FK__tb_medioC__cedul__164452B1" FromRole="tb_medioContacto" ToRole="tb_usuario" />
+        </EntityType>
+        <EntityType Name="tb_usuario">
+          <Key>
+            <PropertyRef Name="cedula" />
+          </Key>
+          <Property Name="cedula" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ciudad" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="edad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tb_contacto" Relationship="Self.FK__tb_contac__cedul__1273C1CD" FromRole="tb_usuario" ToRole="tb_contacto" />
+          <NavigationProperty Name="tb_contacto1" Relationship="Self.FK__tb_contac__cedul__1367E606" FromRole="tb_usuario" ToRole="tb_contacto" />
+          <NavigationProperty Name="tb_medioContacto" Relationship="Self.FK__tb_medioC__cedul__164452B1" FromRole="tb_usuario" ToRole="tb_medioContacto" />
+        </EntityType>
+        <Association Name="FK__tb_Celula__idMed__1920BF5C">
+          <End Role="tb_medioContacto" Type="Self.tb_medioContacto" Multiplicity="1" />
+          <End Role="tb_Celular" Type="Self.tb_Celular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_medioContacto">
+              <PropertyRef Name="idmedioContacto" />
+            </Principal>
+            <Dependent Role="tb_Celular">
+              <PropertyRef Name="idMedioContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_contac__cedul__1273C1CD">
+          <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="1" />
+          <End Role="tb_contacto" Type="Self.tb_contacto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="tb_contacto">
+              <PropertyRef Name="cedulaTitular" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_contac__cedul__1367E606">
+          <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="1" />
+          <End Role="tb_contacto" Type="Self.tb_contacto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="tb_contacto">
+              <PropertyRef Name="cedulaContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_medioC__cedul__164452B1">
+          <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="1" />
+          <End Role="tb_medioContacto" Type="Self.tb_medioContacto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="tb_medioContacto">
+              <PropertyRef Name="cedulaUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ContactosBDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_Celular" EntityType="Self.tb_Celular" />
+          <EntitySet Name="tb_contacto" EntityType="Self.tb_contacto" />
+          <EntitySet Name="tb_medioContacto" EntityType="Self.tb_medioContacto" />
+          <EntitySet Name="tb_usuario" EntityType="Self.tb_usuario" />
+          <AssociationSet Name="FK__tb_Celula__idMed__1920BF5C" Association="Self.FK__tb_Celula__idMed__1920BF5C">
+            <End Role="tb_medioContacto" EntitySet="tb_medioContacto" />
+            <End Role="tb_Celular" EntitySet="tb_Celular" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_contac__cedul__1273C1CD" Association="Self.FK__tb_contac__cedul__1273C1CD">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_contacto" EntitySet="tb_contacto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_contac__cedul__1367E606" Association="Self.FK__tb_contac__cedul__1367E606">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_contacto" EntitySet="tb_contacto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_medioC__cedul__164452B1" Association="Self.FK__tb_medioC__cedul__164452B1">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_medioContacto" EntitySet="tb_medioContacto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContactosBDModelStoreContainer" CdmEntityContainer="ContactosBDEntities">
+          <EntitySetMapping Name="tb_Celular">
+            <EntityTypeMapping TypeName="ContactosBDModel.tb_Celular">
+              <MappingFragment StoreEntitySet="tb_Celular">
+                <ScalarProperty Name="idcelular" ColumnName="idcelular" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="principal" ColumnName="principal" />
+                <ScalarProperty Name="idMedioContacto" ColumnName="idMedioContacto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_contacto">
+            <EntityTypeMapping TypeName="ContactosBDModel.tb_contacto">
+              <MappingFragment StoreEntitySet="tb_contacto">
+                <ScalarProperty Name="idcontacto" ColumnName="idcontacto" />
+                <ScalarProperty Name="cedulaTitular" ColumnName="cedulaTitular" />
+                <ScalarProperty Name="cedulaContacto" ColumnName="cedulaContacto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_medioContacto">
+            <EntityTypeMapping TypeName="ContactosBDModel.tb_medioContacto">
+              <MappingFragment StoreEntitySet="tb_medioContacto">
+                <ScalarProperty Name="idmedioContacto" ColumnName="idmedioContacto" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="facebook" ColumnName="facebook" />
+                <ScalarProperty Name="instagram" ColumnName="instagram" />
+                <ScalarProperty Name="cedulaUsuario" ColumnName="cedulaUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_usuario">
+            <EntityTypeMapping TypeName="ContactosBDModel.tb_usuario">
+              <MappingFragment StoreEntitySet="tb_usuario">
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

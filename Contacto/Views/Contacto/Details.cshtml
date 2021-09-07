@@ -1,0 +1,34 @@
+﻿@model Contacto.ModelBD.tb_contacto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tb_contacto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tb_usuario.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_usuario.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tb_usuario1.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_usuario1.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idcontacto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
